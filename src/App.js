@@ -1,13 +1,14 @@
 import {Component} from "react";
 import Layout from "./hoc/Layout/Layout";
+import Quiz from "./containers/Quiz/Quiz";
 
 class App extends Component {
     render() {
         return (
             <Layout>
-                <div>
-                    <h4 style={{color: 'blueviolet'}}>Layout done!</h4>
-                </div>
+                <Quiz>
+
+                </Quiz>
             </Layout>
         );
     }
