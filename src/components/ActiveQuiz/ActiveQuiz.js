@@ -3,19 +3,20 @@ import classes from "./ActiveQuiz.module.sass";
 import AnswersList from "./AnswersList/AnswersList";
 
 const ActiveQuiz = props => (
-        <div className={classes.ActiveQuiz}>
-            <p className={classes.Question}>
+    <div className={classes.ActiveQuiz}>
+        <p className={classes.Question}>
                 <span>
                     <strong>{props.answerNumber} </strong>
                     {props.question}
                 </span>
-                <small>{props.answerNumber} из {props.quizLength}</small>
-            </p>
+            <small>{props.answerNumber} из {props.quizLength}</small>
+        </p>
 
-            <AnswersList
-                onAnswerClick={props.onAnswerClick}
-                answers={props.answers}/>
-        </div>
-    )
+        <AnswersList
+            onAnswerClick={props.onAnswerClick}
+            answers={props.answers}
+            state={props.state}/>
+    </div>
+)
 
 export default ActiveQuiz;
