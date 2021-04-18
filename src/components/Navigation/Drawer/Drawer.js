@@ -13,7 +13,7 @@ class Drawer extends React.Component {
         return links.map((link, index) => {
             return (
                 <li key={index}>
-                    <a href="#">
+                    <a href="/">
                         {link}
                     </a>
                 </li>
