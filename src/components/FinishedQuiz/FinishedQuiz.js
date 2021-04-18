@@ -1,23 +1,48 @@
 import React from 'react';
 import classes from "./FinishedQuiz.module.sass";
+import Button from "../Ui/Button/Button";
 
 const FinishedQuiz = props => {
+
+    const successCount = Object.keys(props.resuts).reduce((total, key) => {
+        if (props.resuts[key] === 'success') {
+            total++
+        }
+        return total
+    }, 0)
+
     return (
         <div className={classes.FinishedQuiz}>
             <ul>
-                <li>
-                    <strong>1. </strong>
-                    Вопрос 1
-                    <i className={'fa fa-times ' + classes.error}></i>
-                </li>
-                <li>
-                    <strong>2. </strong>
-                    Вопрос 2
-                    <i className={'fa fa-check ' + classes.success}/>
-                </li>
+                {
+                    props.quiz.map((quizItem, index) => {
+                        const cls =[
+                            'fa',
+                            props.resuts[quizItem.id] === 'error' ? 'fa-times' : 'fa-check',
+                            classes[props.resuts[quizItem.id]]
+                        ]
+                        return (
+                            <li key={index}>
+                                <strong>{index+1}</strong>. 
+                                {quizItem.question}
+                                <i className={cls.join(' ')}></i>
+                            </li>
+                        )
+                    })
+                }
             </ul>
-            <p>Правильно 1 из 2</p>
-            <button>Повторить</button>
+            <p>Правильно {successCount} из {props.quiz.length}</p>
+            <Button
+                onClick={props.onRetry}
+                type='primary'
+            >
+                Повторить
+            </Button>
+            <Button
+                type='success'
+            >
+                Все опросы
+            </Button>
         </div>
     )
 }
