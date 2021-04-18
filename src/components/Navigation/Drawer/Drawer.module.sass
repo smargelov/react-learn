@@ -1,0 +1,30 @@
+.Drawer
+    position: fixed
+    left: 0
+    top: 0
+    bottom: 0
+    width: 80%
+    max-width: 300px
+    padding: 40px 10px
+    background-color: #addaef
+    z-index: 90
+    transform: translateX(0px)
+    transition: transform .3s ease-in-out
+    ul
+        list-style: none
+        margin: 0
+        padding: 0
+
+    li
+        margin-bottom: 15px
+        a
+            text-decoration: none
+            color: #2a78ee
+            font-size: 30px
+            transition: all .3s ease-in-out
+            &:hover, &:focus, &.active
+                opacity: .7
+
+.close
+    transform: translateX(-100%)
+
