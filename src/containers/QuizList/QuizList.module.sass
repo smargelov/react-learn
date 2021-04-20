@@ -1,0 +1,23 @@
+@import "../../App"
+.QuizList
+    display: flex
+    justify-content: center
+    padding-top: 100px
+    flex-grow: 1
+    width: 100%
+    background-image: linear-gradient(90deg, $bg-color 0%, #232939 50%, #233931 100%)
+    color: #ABCDD7
+
+    ul
+        list-style: none
+        padding: 0
+        margin: 0
+    li
+        margin-bottom: 10px
+    a
+        text-decoration: none
+        color: $white-color
+        font-size: 2rem
+        &:hover
+            color: darken($white-color, 10%)
+    
