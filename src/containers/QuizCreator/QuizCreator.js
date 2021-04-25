@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./QuizCreator.module.sass";
 import Input from "../../components/Ui/Input/Input";
 import Button from "../../components/Ui/Button/Button";
-import {createControl} from "../../form/formFramework";
+import {createControl, validate} from "../../form/formFramework";
 import Select from "../../components/Ui/Select/Select";
 
 function createOptionControl(num) {
@@ -45,7 +45,12 @@ class QuizCreator extends React.Component {
     }
 
     changeHandler = (value, controlName) => {
+        const formControls = {...this.state.formControls}
+        const control = {...formControls[controlName]}
 
+        control.value = value
+        control.touched = true
+        control.valid = validate(control.value, control.validation)
     }
 
     renderControls() {

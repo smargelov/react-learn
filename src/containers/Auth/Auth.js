@@ -2,10 +2,7 @@ import React from 'react';
 import classes from "./Auth.module.sass";
 import Button from "../../components/Ui/Button/Button";
 import Input from "../../components/Ui/Input/Input";
-
-function emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
+import {validate} from "../../form/formFramework";
 
 class Auth extends React.Component {
     state = {
@@ -50,34 +47,13 @@ class Auth extends React.Component {
         event.preventDefault()
     }
 
-    validateControl(value, validation) {
-        if (!validation) return true
-
-        let isValid = true
-
-        if (validation.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-
-        if (validation.email) {
-            isValid = emailIsValid(value) && isValid
-        }
-
-        if (validation.minLength) {
-            isValid = value.length >= validation.minLength && isValid
-        }
-
-
-        return isValid
-    }
-
     onChangeHandler = (event, controlName) => {
         const formControls = {...this.state.formControls}
         const control = {...formControls[controlName]}
 
         control.value = event.target.value
         control.touched = true
-        control.valid = this.validateControl(control.value, control.validation)
+        control.valid = validate(control.value, control.validation)
 
         formControls[controlName] = control
 
