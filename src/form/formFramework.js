@@ -27,6 +27,14 @@ export function validate(value, validation = null) {
     return isValid
 }
 
+export function validateForm(formControls) {
+    let isFormValid = true
+    Object.keys(formControls).forEach(name => {
+        isFormValid = formControls[name].valid && isFormValid
+    })
+    return isFormValid
+}
+
 function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }

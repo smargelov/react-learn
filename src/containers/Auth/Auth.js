@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./Auth.module.sass";
 import Button from "../../components/Ui/Button/Button";
 import Input from "../../components/Ui/Input/Input";
-import {validate} from "../../form/formFramework";
+import {validate, validateForm} from "../../form/formFramework";
 
 class Auth extends React.Component {
     state = {
@@ -57,14 +57,9 @@ class Auth extends React.Component {
 
         formControls[controlName] = control
 
-        let isFormValid = true
-
-        Object.keys(formControls).forEach(name => {
-            isFormValid = formControls[name].valid && isFormValid
-        })
         this.setState({
             formControls,
-            isFormValid
+            isFormValid: validateForm(formControls)
         })
     }
 

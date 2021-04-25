@@ -2,8 +2,9 @@ import React from 'react';
 import classes from "./QuizCreator.module.sass";
 import Input from "../../components/Ui/Input/Input";
 import Button from "../../components/Ui/Button/Button";
-import {createControl, validate} from "../../form/formFramework";
+import {createControl, validate, validateForm} from "../../form/formFramework";
 import Select from "../../components/Ui/Select/Select";
+import {logDOM} from "@testing-library/react";
 
 function createOptionControl(num) {
     return createControl({
@@ -29,6 +30,7 @@ function createFormControls() {
 class QuizCreator extends React.Component {
     state = {
         quiz: [],
+        isFormValid: false,
         rightAnswerId: 1,
         formControls: createFormControls()
     }
@@ -36,8 +38,8 @@ class QuizCreator extends React.Component {
     submitHandler = event => {
         event.preventDefault()
     }
-    addQuestionHandler = () => {
-
+    addQuestionHandler = (event) => {
+        event.preventDefault()
     }
 
     createQuizHandler = () => {
@@ -51,6 +53,13 @@ class QuizCreator extends React.Component {
         control.value = value
         control.touched = true
         control.valid = validate(control.value, control.validation)
+
+        formControls[controlName] = control
+
+        this.setState({
+            formControls,
+            isFormValid: validateForm(formControls)
+        })
     }
 
     renderControls() {
@@ -101,11 +110,13 @@ class QuizCreator extends React.Component {
 
                         {select}
                         <Button
+                            disabled={!this.state.isFormValid}
                             type="primary"
                             onClick={this.addQuestionHandler}>
                             Добавать вопрос
                         </Button>
                         <Button
+                            disabled={this.state.quiz.length === 0}
                             type="success"
                             onClick={this.createQuizHandler}>
                             Создать тест
