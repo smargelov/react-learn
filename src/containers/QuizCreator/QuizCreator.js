@@ -4,7 +4,7 @@ import Input from "../../components/Ui/Input/Input";
 import Button from "../../components/Ui/Button/Button";
 import {createControl, validate, validateForm} from "../../form/formFramework";
 import Select from "../../components/Ui/Select/Select";
-import {logDOM} from "@testing-library/react";
+import axios from "axios";
 
 function createOptionControl(num) {
     return createControl({
@@ -65,11 +65,20 @@ class QuizCreator extends React.Component {
         })
     }
 
-    createQuizHandler = event => {
+    createQuizHandler = async event => {
         event.preventDefault()
+        try {
+            await axios.post('https://sm-react-quiz-test-default-rtdb.europe-west1.firebasedatabase.app/quizes.json', this.state.quiz)
+            this.setState({
+                quiz: [],
+                isFormValid: false,
+                rightAnswerId: 1,
+                formControls: createFormControls()
+            })
+        } catch (e) {
+            console.log(e)
+        }
 
-        console.log(this.state.quiz)
-    //    todo server
     }
 
     changeHandler = (value, controlName) => {
