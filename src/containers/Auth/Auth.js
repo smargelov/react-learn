@@ -3,6 +3,7 @@ import classes from "./Auth.module.sass";
 import Button from "../../components/Ui/Button/Button";
 import Input from "../../components/Ui/Input/Input";
 import {validate, validateForm} from "../../form/formFramework";
+import axios from "axios";
 
 class Auth extends React.Component {
     state = {
@@ -35,12 +36,33 @@ class Auth extends React.Component {
         }
     }
 
-    loginHandler = () => {
+    loginHandler = async () => {
+        const authData = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCNQw2faQMuV787n7xx7s4Iv8j0YYtnbFI', authData)
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
 
     }
 
-    loginRegister = () => {
-
+    loginRegister = async () => {
+        const authData = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCNQw2faQMuV787n7xx7s4Iv8j0YYtnbFI', authData)
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     submitHandler = event => {
